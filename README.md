@@ -1,100 +1,51 @@
-# **Deepfake Detection Using Optical Flow, PCA, and Bayesian Optimization**
+# Deepfake Detection Using Optical Flow and CNN-LSTM with Bayesian Optimization
 
-## **Project Overview**
-This project explores deepfake video detection using **optical flow residuals**, **Principal Component Analysis (PCA)**, and **Bayesian Optimization** to efficiently classify real vs. fake videos. Rather than relying purely on deep learning-based frame-level inconsistencies, our approach focuses on **motion anomalies**—a domain where deepfake video synthesis struggles due to interpolation artifacts.
+## Project Overview
+This project investigates deepfake video detection by leveraging motion inconsistencies, which are often present due to interpolation artifacts in synthetic videos. Instead of relying purely on spatial inconsistencies in individual frames, our approach focuses on temporal coherence issues by analyzing optical flow features extracted between consecutive frames.
 
-By leveraging **dimensionality reduction via PCA** and **hyperparameter tuning with Bayesian Optimization**, we aim to create a lightweight but robust classification pipeline that can effectively detect deepfake-induced motion distortions with limited computational resources.
+We employ a CNN-LSTM hybrid model to capture both spatial features (CNN) and temporal motion irregularities (LSTM). Bayesian Optimization is used to automate hyperparameter tuning, improving efficiency given our limited computational resources.
 
----
-
-## **Project Objectives**
-1. **Feature Engineering for Motion-Based Detection**
-   - Extract **optical flow residuals** to analyze motion inconsistencies.
-   - Use **Principal Component Analysis (PCA)** to reduce feature dimensionality and highlight key variations.
-   - Identify the **relationships between interpolated frames** to detect synthetic frame transitions.
-   - Compute **optical flow difference maps** to highlight anomalies.
-   - Perform **statistical analysis on motion vectors** (e.g., entropy, variance, smoothness) to quantify deepfake artifacts.
-   - Apply **K-Means clustering on PCA-transformed optical flow features** to discover deepfake-specific patterns.
-
-2. **Machine Learning Model Development**
-   - Train a baseline **SVM or Random Forest** model on PCA-reduced features.
-   - Integrate **Bayesian Optimization** to fine-tune hyperparameters for optimal performance.
-   - Compare against a simple **MLP classifier with Bayesian-tuned backpropagation**.
-
-3. **Evaluation and Performance Metrics**
-   - Measure performance using **Accuracy, Precision, Recall, AUC-ROC, and RMSE**.
-   - Visualize feature separability using **PCA scatter plots and optical flow heatmaps**.
-
-4. **Practical Implementation & Reproducibility**
-   - Ensure computational feasibility by limiting dataset size and optimizing data preprocessing.
-   - Structure the project for **easy replication and deployment**, adhering to best practices for dataset management, model evaluation, and GitHub documentation.
-   
----
-
-## **Dataset**
-- **Primary Choice**: [Deep Fake Detection DFD Dataset](https://www.kaggle.com/datasets/sanikatiwarekar/deep-fake-detection-dfd-entire-original-dataset)
-- **Alternative**: [Multi-Fidelity Deepfake Video Dataset](https://www.kaggle.com/competitions/multi-ffdv/data) *(if a smaller subset is viable)*
-
-Data preprocessing steps:
-- Extract frames from videos.
-- Compute **optical flow** using Farneback or RAFT.
-- Apply **PCA for feature selection and dimensionality reduction**.
-- Split dataset into **train (70%), validation (15%), and test (15%)**.
+The project originally intended to use PCA and statistical feature engineering, but due to challenges with dataset handling and time constraints, we pivoted towards a fully deep learning-based pipeline that dynamically computes Optical Flow during training.
 
 ---
 
-## **Project Structure**
-```
-Deepfake-Detection-Project/
-│── data/                  # Datasets or links to datasets
-│── src/                   # Source code scripts
-│── notebooks/             # Jupyter notebooks (Colab exports go here)
-│── results/               # Saved models, logs, or generated visualizations
-│── README.md              # Project overview & instructions
-│── requirements.txt       # List of dependencies
-│── model_card.md          # Explanation of the trained model
-│── data_card.md           # Explanation of the dataset
-│── LICENSE                # License information (if open-source)
-│── .gitignore             # Files to exclude from Git tracking
-```
+## Project Objectives
+
+### 1. Feature Extraction via Optical Flow
+- Compute Farneback Dense Optical Flow dynamically between consecutive frames.
+- Convert Optical Flow vectors into grayscale magnitude maps to highlight motion distortions.
+- Stack Optical Flow maps as additional input channels for CNN processing.
+
+### 2. Deep Learning Model (CNN + LSTM)
+- Use EfficientNet-B0 as the CNN backbone for spatial feature extraction.
+- Feed CNN-extracted features into an LSTM to model temporal inconsistencies.
+- Apply Bayesian Optimization for automatic hyperparameter tuning, optimizing learning rate, batch size, and LSTM hidden units.
+
+### 3. Training and Evaluation
+- Train the model on an 80/20 train-test split, with a separate holdout set for final evaluation.
+- Evaluate performance using Accuracy, Precision, Recall, and AUC-ROC.
+- Compare results against a baseline CNN-only classifier to quantify the value of temporal modeling.
+
+### 4. Challenges and Lessons Learned
+- Dataset handling was more complex than expected, requiring extensive preprocessing.
+- The decision to compute Optical Flow on-the-fly helped avoid storage issues but increased processing demands.
+- Given more time and better computational resources, 3D video mapping, Transformer-based models, and AutoML techniques would have been explored.
 
 ---
 
-## **Installation & Usage**
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/YOUR-USERNAME/Deepfake-Detection-Project.git
-   cd Deepfake-Detection-Project
-   ```
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Run the Notebook**:
-   - Open `notebooks/deepfake_detection.ipynb` in Jupyter or Google Colab.
-   - Follow the step-by-step instructions in the notebook.
+## Dataset
+
+**Source**: [Deep Fake Detection (DFD) Dataset](https://www.kaggle.com/datasets/sanikatiwarekar/deep-fake-detection-dfd-entire-original-dataset)  
+
+**Preprocessing Steps:**
+- Extract frames from each video and store them in video-named subdirectories.
+- Standardize all sequences to the shortest video length.
+- Split data into train (80%), test (20%), and holdout (1 sequence per class).
+- Compute Optical Flow dynamically during training instead of precomputing.
 
 ---
 
-## **Future Work**
-- Integrating **K-Means clustering** to explore unsupervised feature separation.
-- Experimenting with **Neural Architecture Search (NAS)** for model selection.
-- Exploring **Differentiable Hyperparameter Optimization** techniques.
-
----
-
-## **Contributors**
-- **Your Name** (Project Lead)
-- Additional contributors (if applicable)
-
-For any questions or suggestions, please open an issue in this repository.
-
----
-
-## **License**
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
+## Project Structure
 
 
 
