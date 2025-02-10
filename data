@@ -1,1 +1,20 @@
 # Datasets or links to datasets
+https://www.kaggle.com/datasets/sanikatiwarekar/deep-fake-detection-dfd-entire-original-dataset?select=DFD_manipulated_sequences
+
+1. Downloading the Dataset
+The dataset consists of high-resolution video files, making direct processing difficult. Instead of working with the entire dataset, we:
+
+Downloaded a subset from the original dataset source.
+Stored it on an external hard drive to manage storage constraints.
+Uploaded a smaller working subset to Google Drive for processing in Google Colab.
+2. Inspecting the Data
+Before using the dataset, we performed an initial inspection to:
+
+Verify file formats (ensure all files are valid .mp4 videos).
+Detect corrupted files (videos that fail to open or have broken frames).
+Remove mislabeled or unnecessary metadata to avoid bias.
+3. Cleaning the Dataset
+To prevent data leakage and ensure a fair evaluation, we:
+
+Removed corrupted videos that could not be processed.
+Anonymized filenames to prevent the model from learning patterns from names instead of content.
