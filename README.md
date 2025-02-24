@@ -95,8 +95,8 @@ Given **better computational power and more time**, the ideal approach would inv
 ---
 
 ## **Contributors**
-- **Your Name** (Project Lead)
-- Additional contributors (if applicable)
+- Dead Tom (Project Lead)
+t@deadtommi.com
 
 For any questions or suggestions, please open an issue in this repository.
 
