@@ -44,6 +44,8 @@ The project originally intended to use **PCA and statistical feature engineering
   - Split data into **train (80%), test (20%), and holdout (1 sequence per class)**.
   - Compute **Optical Flow dynamically during training** instead of precomputing.
 
+- **MAJOR INSIGHTS**
+If I were to do this project again I would find a new data set. This data set, doesn't seem to have included some of the more modern or updated deepfake video/manipulation techniques, so would be out of date pretty quickly. 
 ---
 
 ## **Project Structure**
