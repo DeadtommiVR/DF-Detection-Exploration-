@@ -1,4 +1,4 @@
-Here's the **updated README** that reflects the changes in our approach, the challenges with the dataset, and what we would have done with more time and resources. It keeps the same structured format while making it clear that this project was adapted on the fly.
+Here's the **updated README** that reflects the changes in our approach, the challenges with the dataset, and what we would have done with more time and resources. It keeps the same structured format while making it clear that this project was adapted on the fly. IMPORTANT NOTE: This project didnt materialize beyond the planning stage, due to time restrictions. Maybe I'll come back to it...
 
 ---
 
