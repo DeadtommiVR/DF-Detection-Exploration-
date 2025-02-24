@@ -1,1 +1,11 @@
 # List of dependencies
+# Current dependencies for the Deepfake Detection Exploration project
+
+opencv-python>=4.5.5.64
+
+# Future dependencies to be added when the full ML pipeline is implemented:
+# tensorflow>=2.10.0
+# keras>=2.10.0
+# numpy>=1.21.0
+# scikit-learn>=1.0.0
+# (Additional libraries for CNNs, LSTMs, Bayesian optimization, etc. may be included later.)
